@@ -57,16 +57,16 @@ export default function App() {
   }, []);
 
   const isMobile = vw < 768;
-  const heroFontSize = 300;
-  const navFontSize = 22;
+  const heroFontSize = isMobile ? Math.min(vw * 0.14, 100) : 300;
+  const navFontSize = isMobile ? 14 : 22;
 
   const fontSize = useTransform(scrollYProgress, [0, 0.4], [heroFontSize, navFontSize]);
-  const lineGap = useTransform(scrollYProgress, [0, 0.4], [-40, 0]);
+  const lineGap = useTransform(scrollYProgress, [0, 0.4], [isMobile ? -8 : -40, 0]);
 
   const heroLeft = isMobile ? 24 : 64;
-  const heroTop = vh - 96 - heroFontSize * 1.7;
-  const navLeft = 32;
-  const navTop = 32;
+  const heroTop = isMobile ? 40 : vh - 96 - heroFontSize * 1.7;
+  const navLeft = isMobile ? 16 : 32;
+  const navTop = isMobile ? 20 : 32;
 
   const nameLeft = useTransform(scrollYProgress, [0, 0.4], [heroLeft, navLeft]);
   const nameTop = useTransform(scrollYProgress, [0, 0.4], [heroTop, navTop]);
@@ -114,17 +114,17 @@ export default function App() {
         <motion.p
           style={{
             position: "absolute",
-            right: isMobile ? 40 : 80,
-            bottom: isMobile ? 56 : 96,
+            ...(isMobile
+              ? { left: "50%", top: "50%", transform: "translate(-50%, -50%)", textAlign: "center", width: "80%" }
+              : { right: 80, bottom: 96, textAlign: "right", maxWidth: 360 }
+            ),
             opacity: taglineOpacity,
             color: "#ffffff",
             fontFamily: BODY_FONT,
             fontWeight: 300,
-            fontSize: isMobile ? 20 : 36,
-            lineHeight: 1.1,
+            fontSize: isMobile ? 22 : 36,
+            lineHeight: 1.2,
             letterSpacing: "-0.03em",
-            textAlign: "right",
-            maxWidth: 360,
             margin: 0,
             pointerEvents: "none",
           }}
@@ -136,7 +136,7 @@ export default function App() {
         <motion.div
           style={{
             position: "absolute",
-            bottom: 40,
+            bottom: isMobile ? 56 : 40,
             left: "50%",
             transform: "translateX(-50%)",
             opacity: taglineOpacity,
@@ -177,7 +177,7 @@ export default function App() {
             position: "absolute",
             left: 0,
             right: 0,
-            top: isMobile ? 96 : 100,
+            top: isMobile ? 64 : 100,
             bottom: 24,
             y: cardsY,
             opacity: cardsOpacity,
@@ -190,10 +190,8 @@ export default function App() {
             className="grid gap-6 px-8 pb-16 pt-4"
             style={{
               gridTemplateColumns: isMobile
-                ? "repeat(2, minmax(0, 1fr))"
-                : vw < 1200
-                ? "repeat(3, minmax(0, 1fr))"
-                : "repeat(4, minmax(0, 1fr))",
+                ? "repeat(1, minmax(0, 1fr))"
+                : "repeat(3, minmax(0, 1fr))",
               gridAutoRows: "1fr",
             }}
           >

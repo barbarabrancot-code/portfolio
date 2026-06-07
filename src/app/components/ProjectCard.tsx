@@ -10,7 +10,7 @@ type Props = {
 export function ProjectCard({ title, client, date, tag, description, image }: Props) {
   return (
     <div className="group bg-white rounded-[29px] overflow-hidden flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-      <div className="rounded-[29px] w-full overflow-hidden" style={{ height: 240 }}>
+      <div className="rounded-[29px] w-full overflow-hidden aspect-square">
         {image
           ? <img src={image} alt={title} className="w-full h-full object-cover" />
           : <div className="bg-[#717171] w-full h-full" />
