@@ -5,7 +5,7 @@ import ProjectPage from "./app/pages/ProjectPage.tsx";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/portfolio">
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/project/:slug" element={<ProjectPage />} />
