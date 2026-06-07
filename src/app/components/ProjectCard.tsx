@@ -4,17 +4,19 @@ type Props = {
   date: string;
   tag: string;
   description: string;
-  imageHeight?: number;
+  image?: string;
 };
 
-export function ProjectCard({ title, client, date, tag, description, imageHeight = 366 }: Props) {
+export function ProjectCard({ title, client, date, tag, description, image }: Props) {
   return (
-    <div className="group bg-white rounded-[29px] overflow-hidden flex flex-col gap-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-      <div
-        className="bg-[#717171] rounded-[29px] w-full"
-        style={{ height: imageHeight }}
-      />
-      <div className="flex flex-col gap-3 px-6 pb-6 w-full">
+    <div className="group bg-white rounded-[29px] overflow-hidden flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
+      <div className="rounded-[29px] w-full overflow-hidden" style={{ height: 240 }}>
+        {image
+          ? <img src={image} alt={title} className="w-full h-full object-cover" />
+          : <div className="bg-[#717171] w-full h-full" />
+        }
+      </div>
+      <div className="flex flex-col gap-3 px-6 pb-6 pt-4 flex-1">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex items-center justify-between w-full gap-3">
             <p
@@ -36,7 +38,7 @@ export function ProjectCard({ title, client, date, tag, description, imageHeight
             className="text-[#acb6de] leading-[1.1]"
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 400, fontSize: 16 }}
           >
-            {client} · {date}
+            {date}
           </p>
         </div>
         <p
